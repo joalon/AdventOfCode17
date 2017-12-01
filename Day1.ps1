@@ -27,10 +27,9 @@ Function GetSum
     }
 }
 
-
-
 $sum = GetSum $var
 write-host $sum
+
 
 
 Function GetSumHalfwayRound
@@ -40,16 +39,14 @@ Function GetSumHalfwayRound
     Process
     {
         $sum = 0
-
         $halfway = ($array.Count / 2)
 
-        for($i = 0; $i -le $halfway; $i++)
+        for($i = 0; $i -lt $halfway; $i++)
         {
             if( $array[$i] -eq $array[$i+$halfway])
             {
                 $sum = ($sum + $array[$i])
             }
-
         }
 
         return ($sum * 2)

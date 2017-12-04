@@ -21,11 +21,11 @@ Function ContainsDuplicateString
             }
             else
             {
-                return $false
+                return $true
             }
         }
 
-        return $true
+        return $false
     }
 }
 
@@ -43,8 +43,44 @@ function Hash($textToHash)
     return $res;
 }
 
-ContainsDuplicateString "aa bb cc dd ee" #Should return true
+ContainsDuplicateString "aa bb cc dd ee" #Should return false
 
-ContainsDuplicateString "aa bb cc dd aa" #Should return false
+ContainsDuplicateString "aa bb cc dd aa" #Should return true
 
-$file | Where-Object { (ContainsDuplicateString $_) } | Measure-Object
+$file | Where-Object { (ContainsDuplicateString $_) -eq $false } | Measure-Object
+
+
+Function ContainsAnagram
+{
+    Param(
+        [parameter(ValueFromPipeline)]
+        [String]$passphrase
+    )
+
+    Process
+    {
+        $individualWords = $passphrase -split '\s+'
+        
+        $uniqueHashedWords = @()
+        foreach ($word in $individualWords)
+        {
+            $sortedWord = ($word -split '(.{1})' | Where-Object { $_ } | sort)
+            $hash = Hash $sortedWord
+            if($uniqueHashedWords.Contains($hash) -eq $false)
+            {
+                $uniqueHashedWords += $hash
+            }
+            else
+            {
+                return $true
+            }
+        }
+
+        return $false
+    }
+}
+
+
+ContainsAnagram "abcde fghij" #Should return false
+
+ContainsAnagram "abcde xyz ecdab" #Should return true

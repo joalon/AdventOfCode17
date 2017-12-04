@@ -50,6 +50,7 @@ ContainsDuplicateString "aa bb cc dd aa" #Should return true
 $file | Where-Object { (ContainsDuplicateString $_) -eq $false } | Measure-Object
 
 
+
 Function ContainsAnagram
 {
     Param(
@@ -80,7 +81,8 @@ Function ContainsAnagram
     }
 }
 
-
 ContainsAnagram "abcde fghij" #Should return false
 
 ContainsAnagram "abcde xyz ecdab" #Should return true
+
+$file | Where-Object { (ContainsAnagram $_) -eq $false } | Measure-Object

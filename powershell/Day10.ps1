@@ -22,7 +22,7 @@ class Knot {
     }
 
 
-    [int[]] ReverseLength() {
+    [void] ReverseLength() {
         $start = $this.Lengths[$this.CurrentLengthIndex]
 
         [int[]]$pieceOfCircle = @()
@@ -35,7 +35,6 @@ class Knot {
                 $this.CurrentPosition++
             }
         }
-
 
         for($i = 0; $i -lt $pieceOfCircle.Length; $i++) {
             if($this.CurrentPosition -eq 0) {
@@ -55,8 +54,6 @@ class Knot {
         }
 
         $this.CurrentLengthIndex++
-
-        return $this.Circle
     }
 
     [string] PrintSolution1() {
@@ -64,22 +61,46 @@ class Knot {
     }
 }
 
-$file
-
 [int[]]$lengths = ($file.Split(',') | % { [int]$_ } )
 [int[]]$circle = 0..255
 
-
-
-
-#[int[]]$lengths = @(3,4,1,5)
-#[int[]]$circle = 0..4
-
 $knot = [Knot]::new($circle, $lengths, 0, 0, 0)
-
 $lengths | % { $knot.ReverseLength() }
-
 $knot.PrintSolution1()
 
+write-host $knot.Circle
 
 
+[int[]]$asciiFile = ($file.split(",", [System.StringSplitOptions]::RemoveEmptyEntries) | % { [int[]]$asciiFile = @(); $enc = [System.Text.Encoding]::ASCII } { $asciiFile += $enc.GetString([char]$_) } { return $asciiFile })
+
+write-host $file
+Write-Host $asciiFile
+
+<#
+$enc = [System.Text.Encoding]::ASCII
+
+$asd = [char]50
+
+[int]$enc.GetString($asd)
+#>
+
+
+<#
+$asd = ""
+97..122 | % { $asd += [char]$_ }
+
+
+$etf = [byte]97
+$etf.GetType()
+
+
+
+$bytes = $enc.GetBytes($asd)
+$byte = $bytes[0]
+$byte.GetType()
+
+$byte -bxor [byte]98
+
+[System.BitConverter]::ToString([Byte[]](1,2,3,4,5,6,255,16)) #-replace "-"
+
+#>

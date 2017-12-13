@@ -1,8 +1,6 @@
 ﻿$file = Get-Content .\input_day11.txt
 
 
-
-
 class Position {
 
     [int]$X
@@ -18,6 +16,10 @@ Function Solve {
 
     Begin {
         $result = New-Object Position -property @{ X = 0; Y = 0}
+
+        [int]$numberOfNMoves=0
+        [int]$numberofNEMoves=0
+        [int]$numberOfSEMoves=0
     }
 
     Process {
@@ -28,40 +30,42 @@ Function Solve {
             switch ($_) {
                 
                 "n" {
-                    $result = New-Object Position -property @{ X = $result.X; Y = ($result.Y + 1) }
+                    $numberOfNMoves++
                 }
                 "ne" {
-                    $result = New-Object Position -property @{ X = ($result.X + 1); Y = ($result.Y + 1) }
+                    $numberofNEMoves++
                 }
                 "se" {
-                    $result = New-Object Position -property @{ X = ($result.X + 1); Y = $result.Y }
+                    $numberofSEMoves++
                 }
                 "s" {
-                    $result = New-Object Position -property @{ X = $result.X; Y = ($result.Y - 1) }
+                    $numberOfNMoves--
                 }
                 "sw" {
-                    $result = New-Object Position -property @{ X = ($result.X - 1); Y = $result.Y }
+                    $numberofNEMoves--
                 }
                 "nw" {
-                    $result = New-Object Position -property @{ X = ($result.X - 1); Y = ($result.Y + 1) }
+                    $numberofSEMoves--
                 }
             }
         }
     }
 
     End {
-        return ([math]::Sqrt([math]::Pow($result.X, 2)) + [math]::Sqrt([math]::Pow($result.Y, 2))), $result
+        return ($numberofNEMoves + ($numberOfNMoves * 2) + ($numberOfSEMoves - $numberOfNMoves))
     }
 }
 
 $test1 = "ne,ne,ne"
 
-(Solve $test1) -eq 3
+Solve $test1
 
 $test2 = "ne,ne,s,s"
 
-(Solve $test2) -eq 2
-solve $test2
+Solve $test2
 
+$test3 = "se,sw,se,sw,sw"
 
-#Solve $file | Write-Host
+Solve $test3
+
+Solve $file

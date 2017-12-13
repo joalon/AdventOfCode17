@@ -1,4 +1,4 @@
-﻿$file = Get-Content .\input_day8.txt
+﻿$file = Get-Content  ..\input\input_day8.txt
 
 $registers = @{}
 

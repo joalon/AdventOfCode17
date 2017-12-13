@@ -1,4 +1,4 @@
-﻿
+﻿$file = Get-Content  ..\input\input_day12.txt
 
 class Program {
 
@@ -87,8 +87,6 @@ $test2 = ($test | ParsePrograms)
 
 solve $test2
 
-
-$file = Get-Content .\input_day12.txt
 
 $file | ParsePrograms | Solve
 

@@ -1,4 +1,4 @@
-﻿$file = Get-Content .\input_day4.txt
+﻿$file = Get-Content  ..\input\input_day4.txt
 
 Function ContainsDuplicateString
 {

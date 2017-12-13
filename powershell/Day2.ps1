@@ -1,4 +1,4 @@
-﻿[String[]]$file = Get-Content .\input_day2.txt
+﻿[String[]]$file = Get-Content ..\input\input_day2.txt
 
 function CalculateChecksum
 {

@@ -1,4 +1,4 @@
-﻿$file = Get-Content .\input_day6.txt
+﻿$file = Get-Content  ..\input\input_day6.txt
 
 [int[]]$parsedInput = ($file -split '\s+' | foreach { [int]$_ })
 

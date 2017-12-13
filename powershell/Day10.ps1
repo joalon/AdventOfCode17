@@ -1,4 +1,4 @@
-﻿$file = Get-Content .\input_day10.txt
+﻿$file = Get-Content  ..\input\input_day10.txt
 
 
 class Knot {

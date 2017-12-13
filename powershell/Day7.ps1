@@ -1,4 +1,4 @@
-﻿$file = Get-Content .\input_day7.txt
+﻿$file = Get-Content  ..\input\input_day7.txt
 
 $test = "pbga (66)",
 "xhth (57)",

@@ -66,7 +66,7 @@ Function ParseProgram {
 
 [Program[]]$unsorted = @()
 #$file | foreach { $unsorted += (ParseProgram $_) }
-$file | foreach { $unsorted += (ParseProgram $_) }
+$test | foreach { $unsorted += (ParseProgram $_) }
 
 [Program[]]$nextPass = @()
 $unsorted | foreach { $nextPass += $_}
@@ -134,7 +134,7 @@ foreach($child in $root.Children) {
 
 write-host "layer weights: "
 foreach($child in $root.Children) {
-    $weight = (CalculateLayerWeights $child 10)
+    $weight = (CalculateLayerWeights $child 1)
     write-host $child.Name ": " $weight
 }
 

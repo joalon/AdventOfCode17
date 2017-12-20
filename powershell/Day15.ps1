@@ -1,6 +1,4 @@
-﻿#$file = Get-Content ..\input\input_day15.txt
-
-class Generator {
+﻿class Generator {
 
     [int]$Factor
 
@@ -29,4 +27,4 @@ class Generator {
 #$genB = [Generator]::new(48271, 8921)
 
 1..40000000 | % { $matches = 0; $genA = [Generator]::new(16807, 116); $genB = [Generator]::new(48271, 299) }{ $A = $genA.Generate(); $B = $genB.Generate(); if([uint16]($A -band 0xffff) -eq [uint16]($B -band 0xffff)) { $Matches++ } }{ return $Matches }
-
+# Soooo sloooow

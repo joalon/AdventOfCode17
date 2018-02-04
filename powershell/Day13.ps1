@@ -112,13 +112,14 @@ $firewall1 = [Firewall]::new($test, 0)
 
 
 #Solution 2
-$delay = 0
+$delay = 5
 do {
     $firewall2 = [Firewall]::new($file, $delay)
+    $severity = 0
     for($i = 0; $i -lt ($firewall2.Wall.Count+$delay); $i++) {
-        $firewall2.Scan()
+        $severity += $firewall2.Scan()
     }
     $delay++
-} while ($firewall2.TimesCaught -ne 0)
+} while ($severity -ne 0)
 
 ($delay-1)

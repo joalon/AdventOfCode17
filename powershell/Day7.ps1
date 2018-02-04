@@ -65,8 +65,8 @@ Function ParseProgram {
 
 
 [Program[]]$unsorted = @()
-#$file | foreach { $unsorted += (ParseProgram $_) }
-$test | foreach { $unsorted += (ParseProgram $_) }
+$file | foreach { $unsorted += (ParseProgram $_) }
+#$test | foreach { $unsorted += (ParseProgram $_) }
 
 [Program[]]$nextPass = @()
 $unsorted | foreach { $nextPass += $_}
@@ -85,6 +85,7 @@ foreach ($prog in $unsorted) {
 
 [Program]$root = [System.Linq.Enumerable]::Single($unsorted, [Func[Program,bool]]{ param($p) $p.Parent -eq $null })
 
+
 function CalculateChildWeights {
 
     Param(
@@ -102,39 +103,17 @@ function CalculateChildWeights {
             $childWeights += (CalculateChildWeights $child)
         }
 
-        return $childWeights
+        return ($childWeights + $node.Weight)
     }
 }
 
-function CalculateLayerWeights {
-    Param(
-        [Program]$node,
-        [int]$targetLayer,
-        [int]$currentLayer = 0
-    )
-    process {
-        if($targetLayer -eq $currentLayer){
-            return $node.Weight
-        }
 
-        [int]$layerWeight = 0
-        foreach($child in $node.Children) {
-            $layerWeight += (CalculateLayerWeights $child $targetLayer ($currentLayer++))
-        }
-
-        return $layerWeight
-    }
-}
-
-write-host "Child weights: "
-foreach($child in $root.Children) {
+foreach($child in $root.Children.Where({$_.Name -eq "smaygo"}).Children.Where({$_.Name -eq "hmgrlpj"}).Children) {
     $weight = (CalculateChildWeights $child)
-    write-host $child.Name ": " ($weight + $child.Weight)
+    write-host $child.Name ": " $weight
+    write-host "Its weight: " $child.Weight
 }
 
-write-host "layer weights: "
-foreach($child in $root.Children) {
-    $weight = (CalculateLayerWeights $child 1)
-    write-host $child.Name ": " $weight
-}
+
+
 
